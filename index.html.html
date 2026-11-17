@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>PulseForge · Smart Gym OS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>
+:root{--bg:#0b0e14;--pn:#131823;--pn2:#1a2130;--bd:#232c3e;--tx:#e8ecf4;--mu:#8b95a9;--ac:#ff6a3d;--ac2:#7c5cff;--ok:#2ec27e;--wn:#f5a524;--er:#ff4d6d;--hm:#1d2535;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f3f4f8;--pn:#fff;--pn2:#f0f2f7;--bd:#e0e4ec;--tx:#151a26;--mu:#667086;--hm:#e8ebf2;color-scheme:light}}
+:root[data-theme="light"]{--bg:#f3f4f8;--pn:#fff;--pn2:#f0f2f7;--bd:#e0e4ec;--tx:#151a26;--mu:#667086;--hm:#e8ebf2;color-scheme:light}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+button,input,select,textarea{font:inherit;color:var(--tx);background:var(--pn2);border:1px solid var(--bd);border-radius:10px;padding:8px 12px;outline:none}
+input:focus,select:focus{border-color:var(--ac)}button{cursor:pointer;transition:.15s}button:hover{border-color:var(--ac);transform:translateY(-1px)}
+.pr{background:linear-gradient(135deg,var(--ac),var(--ac2));border:0;color:#fff;font-weight:600}.gh{background:none}
+.app{display:grid;grid-template-columns:210px 1fr;min-height:100vh}
+nav{background:var(--pn);border-right:1px solid var(--bd);padding:18px 12px;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;gap:6px}
+.lg{font-weight:800;font-size:19px;padding:0 8px 14px;letter-spacing:-.5px}.lg b{background:linear-gradient(135deg,var(--ac),var(--ac2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lg small{display:block;font-size:11px;color:var(--mu);font-weight:500;letter-spacing:0}
+nav button.nv{text-align:left;background:none;border:0;padding:10px 12px;border-radius:10px;color:var(--mu);font-weight:600}
+nav button.nv.on{background:var(--pn2);color:var(--tx);box-shadow:inset 3px 0 var(--ac)}
+.sp{flex:1}.sync{font-size:12px;color:var(--mu);padding:4px 8px}
+main{padding:22px;min-width:0;max-width:1150px;width:100%}
+.hd{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+h1{font-size:24px;margin:0;letter-spacing:-.5px}h2{font-size:14px;margin:0 0 12px;color:var(--mu);font-weight:600;text-transform:uppercase;letter-spacing:.6px}
+.g{display:grid;gap:14px;margin-bottom:14px}.k4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}.c2{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.cd{background:var(--pn);border:1px solid var(--bd);border-radius:16px;padding:16px;min-width:0;animation:in .35s both}
+@keyframes in{from{opacity:0;transform:translateY(8px)}}
+.kp .n{font-size:32px;font-weight:800;letter-spacing:-1px}.kp .l{color:var(--mu);font-size:12px}.kp .i{float:right;font-size:22px;opacity:.9}
+.mu{color:var(--mu)}.r{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.rs{justify-content:space-between}
+.chip{padding:5px 12px;border-radius:99px;font-size:13px;background:var(--pn2);border:1px solid var(--bd)}.chip.on{background:var(--ac);border-color:var(--ac);color:#fff}
+.b{display:inline-block;padding:1px 9px;border-radius:99px;font-size:11px;font-weight:700;color:#fff}.Active,.ok{background:var(--ok)}.Expiring,.wn{background:var(--wn)}.Expired,.er{background:var(--er)}.gy{background:var(--mu)}
+.mg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.mc{cursor:pointer;transition:.2s}.mc:hover{transform:translateY(-3px);border-color:var(--ac)}
+.av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;flex:none}
+.bar{height:6px;border-radius:9px;background:var(--hm);overflow:hidden;margin-top:10px}.bar i{display:block;height:100%;border-radius:9px}
+.dr{position:fixed;inset:0 0 0 auto;width:min(520px,100%);background:var(--bg);border-left:1px solid var(--bd);z-index:20;overflow:auto;padding:18px;padding-top:calc(18px + env(safe-area-inset-top,0px));transform:translateX(105%);transition:.3s}
+.dr.o{transform:none}.sh{position:fixed;inset:0;background:#0008;z-index:19;opacity:0;pointer-events:none;transition:.3s}.sh.o{opacity:1;pointer-events:auto}
+form{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:8px}
+.tg{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,40px);background:var(--tx);color:var(--bg);padding:10px 18px;border-radius:99px;font-weight:600;opacity:0;transition:.3s;z-index:40;pointer-events:none}
+.tg.o{opacity:1;transform:translate(-50%,0)}
+.hmw{overflow-x:auto}svg text{fill:var(--mu);font-size:10px}.ln{stroke:var(--ac);fill:none;stroke-width:2.5;stroke-linecap:round}
+.sr{position:relative}.sr .dd{position:absolute;left:0;right:0;top:100%;background:var(--pn2);border:1px solid var(--bd);border-radius:10px;z-index:5;margin-top:4px;overflow:hidden}
+.dd div{padding:8px 12px;cursor:pointer}.dd div:hover{background:var(--bd)}
+.fl{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--bd)}.fl:last-child{border:0}
+@media(max-width:760px){.app{grid-template-columns:1fr}nav{position:fixed;bottom:0;top:auto;left:0;right:0;height:auto;flex-direction:row;z-index:15;padding:6px 6px calc(6px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--bd);border-right:0}.lg,.sp,.sync,nav .gh{display:none}nav button.nv{flex:1;text-align:center;padding:10px 4px;font-size:12px}nav button.nv.on{box-shadow:inset 0 3px var(--ac)}main{padding:16px 14px 90px}}
+</style></head><body>
+<div class="app"><nav>
+<div class="lg"><b>PulseForge</b><small>Smart Gym OS</small></div>
+<button class="nv on" data-v="dash">◉ Dashboard</button><button class="nv" data-v="mem">☰ Members</button><button class="nv" data-v="rem">🔔 Reminders</button>
+<div class="sp"></div><div class="sync" id="sy">…</div>
+<button class="gh" data-a="seed">⚡ Load sample data</button><button class="gh" data-a="wipe">🗑 Reset all data</button></nav>
+<main id="mn"></main></div>
+<div class="sh" id="sh"></div><aside class="dr" id="dr"></aside><div class="tg" id="tg"></div>
+<script>
+const $=s=>document.querySelector(s),esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const iso=d=>{const x=new Date(d);return x.getFullYear()+"-"+String(x.getMonth()+1).padStart(2,"0")+"-"+String(x.getDate()).padStart(2,"0")};
+const day=s=>new Date(s+"T00:00:00"),addD=(s,n)=>{const d=day(s);d.setDate(d.getDate()+n);return iso(d)},diff=(a,b)=>Math.round((day(a)-day(b))/864e5),T=()=>iso(new Date());
+const PL={Monthly:30,Quarterly:90,Annual:365};
+let M=[],db=null,cloud=false,V={v:"dash",q:"",f:"all",s:"name",open:null},I=new Map(),seen={};
+/* ---------- storage ---------- */
+function toast(t){const e=$("#tg");e.textContent=t;e.classList.add("o");clearTimeout(toast.t);toast.t=setTimeout(()=>e.classList.remove("o"),2200)}
+function save(m){const {id,...r}=m;if(cloud)db.collection("members").doc(id).set(r).catch(e=>toast("Save failed: "+(e.message||e.code)));else{try{localStorage.setItem("pf1",JSON.stringify(M))}catch(e){}}draw()}
+function remove(id){M=M.filter(m=>m.id!==id);if(cloud)db.collection("members").doc(id).delete();else save({id:"x"});draw()}
+async function init(){
+  try{db=window.claude?await window.claude.use("db"):null}catch(e){db=null}
+  if(db){cloud=true;$("#sy").textContent="● Connecting…";const tm=setTimeout(()=>$("#sy").textContent="● Cloud unreachable (showing cached)",10000);
+    db.collection("members").onSnapshot(s=>{clearTimeout(tm);M=s.docs.map(d=>({id:d.id,...d.data()}));$("#sy").textContent="● Cloud synced · "+M.length+" members";draw()},e=>$("#sy").textContent="● Error: "+(e.message||e.code))}
+  else{try{M=JSON.parse(localStorage.getItem("pf1")||"[]")}catch(e){}$("#sy").textContent="○ Local only (this browser)";draw()}
+}
+/* ---------- sample data ---------- */
+function rng(a){return()=>{a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function gen(){const r=rng(2026),pick=a=>a[Math.floor(r()*a.length)],t=T(),F="Aarav Vivaan Aditi Ananya Rohan Priya Karan Neha Isha Arjun Meera Rahul Sneha Vikram Kavya Siddharth Pooja Nikhil Divya Manish Riya Aman Tanvi Harsh Shreya Varun Nisha Kunal Swati Deepak Anjali Rajat Sana Imran Lakshmi Gaurav Pallavi Yash Ritu Dev".split(" "),L="Sharma Verma Rao Nair Iyer Mehta Shah Reddy Patel Gupta Singh Kapoor Joshi Das Menon Kulkarni Bose Khan Pillai Naidu".split(" "),X=[["Squat",40,100],["Bench press",30,80],["Deadlift",50,120],["Overhead press",20,50],["Barbell row",30,70],["Lat pulldown",30,70],["Leg press",60,160],["Bicep curl",8,25]],used=new Set(),out=[];
+  while(out.length<120){const name=pick(F)+" "+pick(L);if(used.has(name))continue;used.add(name);
+    const plan=pick(["Monthly","Monthly","Quarterly","Annual"]),h=Math.round(155+r()*32),w=Math.round((19+r()*11)*(h/100)**2*10)/10,u=r(),act=pick([.85,.7,.55,.4,.25,.08]),lapse=act<.1,
+    exp=u<.84?r()*300+10:u<.93?r()*7:-(1+r()*25),visits=[],logs=[];
+    for(let d=0;d<90;d++){if(lapse&&d<20)continue;if(r()<act*(d%7==6?.4:1)){const x=addD(t,-d);visits.push(x);if(r()<.55)for(let k=0;k<1+Math.floor(r()*3);k++){const e=pick(X);logs.push({date:x,ex:e[0],sets:2+Math.floor(r()*4),reps:pick([6,8,10,12]),kg:Math.round((e[1]+r()*(e[2]-e[1]))/2.5)*2.5})}}}
+    const g=pick(["Weight loss","Muscle gain","Endurance","Strength"]);
+    out.push({id:"m"+String(out.length+1).padStart(3,"0"),name,plan,h,w,goal:g,trainer:pick(["Arun","Divya","Imran","Sunita"]),phone:"+91 9"+Math.floor(1e8+r()*9e8),joined:addD(t,-Math.floor(30+r()*300)),expiry:addD(t,Math.round(exp)),visits:visits.sort(),logs,weigh:[{d:addD(t,-60),kg:Math.round((w+(g=="Weight loss"?3:-1.5))*10)/10},{d:addD(t,-30),kg:Math.round((w+(g=="Weight loss"?1.5:-.7))*10)/10},{d:t,kg:w}],sess:r()<.5?[{d:addD(t,Math.floor(r()*5)),time:pick(["07:00","18:30","19:00"]),type:pick(["Strength","HIIT","Mobility","Cardio"])}]:[]})}
+  return out}
+async function seed(){if(M.length&&!confirm("Add 120 sample members?"))return;const L=gen();let i=0,n=0;toast("Loading sample data…");
+  const run=async()=>{while(i<L.length){const m=L[i++],{id,...r}=m;try{if(cloud)await db.collection("members").doc(id).set(r);else M.push(m)}catch(e){}n++}};
+  await Promise.all(Array.from({length:8},run));if(!cloud)save({id:"x"});toast("Loaded "+L.length+" members")}
+async function wipe(){if(!M.length||!confirm("Delete ALL members and data?"))return;const ids=M.map(m=>m.id);if(cloud)await Promise.all(ids.map(id=>db.collection("members").doc(id).delete()));else{M=[];save({id:"x"})}toast("All data cleared")}
+/* ---------- logic ---------- */
+function info(m){const t=T(),v=new Set(m.visits),last=[...v].sort().pop();let d=v.has(t)?t:addD(t,-1),s=0;while(v.has(d)){s++;d=addD(d,-1)}
+  const left=diff(m.expiry,t),st=left<0?"Expired":left<=7?"Expiring":"Active",gap=last?diff(t,last):999;
+  return{v,last,streak:s,left,st,b:m.w/((m.h/100)**2),gap,risk:st!=="Expired"&&gap>14,pct:Math.max(0,Math.min(1,left/PL[m.plan]))}}
+const bc=b=>b<18.5?["Underweight","wn"]:b<25?["Healthy","ok"]:b<30?["Overweight","wn"]:["Obese","er"];
+const hue=s=>[...s].reduce((a,c)=>a+c.charCodeAt(0)*7,0)%360,ini=n=>n.split(" ").map(x=>x[0]).join("").slice(0,2);
+const av=m=>`<div class="av" style="background:hsl(${hue(m.name)} 60% 45%)">${esc(ini(m.name))}</div>`;
+const wk=s=>{const d=day(s);d.setDate(d.getDate()-((d.getDay()+6)%7));return iso(d)};
+function weeks(fn){const w=wk(T()),o=[];for(let i=7;i>=0;i--){const a=addD(w,-7*i);o.push([a.slice(5),fn(a,addD(a,7))])}return o}
+function bars(data,h=100){const mx=Math.max(1,...data.map(d=>d[1])),bw=300/data.length;return`<svg viewBox="0 0 300 ${h+16}" width="100%">${data.map((d,i)=>{const bh=d[1]/mx*(h-14);return`<rect x="${i*bw+5}" y="${h-bh}" width="${bw-10}" height="${bh}" rx="4" fill="url(#gr)"/><text x="${i*bw+bw/2}" y="${h-bh-3}" text-anchor="middle">${d[1]}</text><text x="${i*bw+bw/2}" y="${h+12}" text-anchor="middle">${d[0]}</text>`}).join("")}<defs><linearGradient id="gr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="var(--ac)"/><stop offset="1" stop-color="var(--ac2)"/></linearGradient></defs></svg>`}
+function heat(cnt,n,mx){const t=T(),s=addD(wk(t),-7*(n-1)),c=13;let o="";for(let w=0;w<n;w++)for(let d=0;d<7;d++){const x=addD(s,w*7+d);if(x>t)continue;const v=cnt[x]||0;o+=`<rect x="${w*(c+3)}" y="${d*(c+3)}" width="${c}" height="${c}" rx="3" fill="${v?"var(--ac)":"var(--hm)"}" fill-opacity="${v?.25+.75*Math.min(1,v/mx):1}"><title>${x}: ${v}</title></rect>`}return`<div class="hmw"><svg viewBox="0 0 ${n*(c+3)} 112" width="${n*(c+3)}" height="112">${o}</svg></div>`}
+function ring(p,col,label,sub){const R=42,C=2*Math.PI*R;return`<svg viewBox="0 0 110 110" width="110"><circle cx="55" cy="55" r="${R}" stroke="var(--hm)" stroke-width="11" fill="none"/><circle cx="55" cy="55" r="${R}" stroke="${col}" stroke-width="11" fill="none" stroke-linecap="round" stroke-dasharray="${C*p} ${C}" transform="rotate(-90 55 55)"/><text x="55" y="55" text-anchor="middle" style="font-size:20px;font-weight:800;fill:var(--tx)">${label}</text><text x="55" y="70" text-anchor="middle">${sub}</text></svg>`}
+const msg=(m,i)=>i.left<0?`Hi ${m.name}, your ${m.plan} membership expired ${-i.left} day(s) ago. Renew this week to keep your ${i.streak}-day momentum going! 💪`:`Hi ${m.name}, your ${m.plan} membership ends in ${i.left} day(s) (${m.expiry}). Renew at the desk to keep your streak alive!`;
+/* ---------- views ---------- */
+function dash(){const t=T(),A=M.filter(m=>I.get(m.id).left>=0),ex=A.filter(m=>I.get(m.id).left<=7),today=M.filter(m=>I.get(m.id).v.has(t)),
+  ret=A.length?Math.round(A.filter(m=>I.get(m.id).gap<=30).length/A.length*100):0,cnt={};M.forEach(m=>m.visits.forEach(d=>cnt[d]=(cnt[d]||0)+1));
+  const act=M.filter(m=>I.get(m.id).st==="Active").length,exg=ex.length,exp=M.length-A.length,top=M.slice().sort((a,b)=>I.get(b.id).streak-I.get(a.id).streak).slice(0,5),risk=M.filter(m=>I.get(m.id).risk);
+  const kp=(i,n,l,s="")=>`<div class="cd kp"><span class="i">${i}</span><div class="n" data-n="${n}" data-s="${s}">${n}${s}</div><div class="l">${l}</div></div>`;
+  return`<div class="hd"><div><h1>Dashboard</h1><span class="mu">${new Date().toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long"})}</span></div>
+  <div class="sr" style="min-width:min(300px,100%)"><input id="qc" placeholder="⚡ Quick check-in: type a name…" autocomplete="off" style="width:100%"><div class="dd" id="dd" hidden></div></div></div>
+  <div class="g k4">${kp("👥",A.length,"Active members")}${kp("✅",today.length,"Checked in today")}${kp("⏳",exg,"Renewals due ≤7 days")}${kp("📈",ret,"30-day retention","%")}</div>
+  <div class="g c2"><div class="cd"><h2>Gym attendance · last 13 weeks</h2>${heat(cnt,13,Math.max(1,...Object.values(cnt)))}</div>
+  <div class="cd"><h2>Weekly active members</h2>${bars(weeks((a,b)=>M.filter(m=>m.visits.some(d=>d>=a&&d<b)).length))}</div></div>
+  <div class="g c2"><div class="cd"><h2>Membership health</h2><div class="r" style="gap:18px">${ring(M.length?act/M.length:0,"var(--ok)",Math.round(M.length?act/M.length*100:0)+"%","active")}<div><div><span class="b Active">Active</span> ${act}</div><div style="margin:6px 0"><span class="b Expiring">Expiring</span> ${exg}</div><div><span class="b Expired">Expired</span> ${exp}</div></div></div></div>
+  <div class="cd"><h2>🔥 Streak leaderboard</h2>${top.map((m,i)=>`<div class="fl mc" data-open="${m.id}"><b>${i+1}</b>${av(m)}<div style="flex:1">${esc(m.name)}</div><b>${I.get(m.id).streak} d</b></div>`).join("")||'<span class="mu">No data yet</span>'}</div></div>
+  <div class="cd"><h2>⚠ Churn risk · no visit in 14+ days (${risk.length})</h2><div class="r">${risk.slice(0,12).map(m=>`<span class="chip mc" data-open="${m.id}">${esc(m.name)} · ${I.get(m.id).gap>900?"never":I.get(m.id).gap+"d"}</span>`).join("")||'<span class="mu">Nobody at risk 🎉</span>'}${risk.length>12?`<span class="mu">+${risk.length-12} more</span>`:""}</div></div>`}
+function mem(){const q=V.q.toLowerCase();let L=M.filter(m=>m.name.toLowerCase().includes(q)&&(V.f==="all"||(V.f==="Risk"?I.get(m.id).risk:I.get(m.id).st===V.f)));
+  L.sort((a,b)=>V.s==="name"?a.name.localeCompare(b.name):V.s==="streak"?I.get(b.id).streak-I.get(a.id).streak:I.get(a.id).left-I.get(b.id).left);
+  return`<div class="hd"><h1>Members <span class="mu">(${L.length})</span></h1><button class="pr" data-a="add">+ Add member</button></div>
+  <div class="r" style="margin-bottom:14px"><input id="q" placeholder="🔍 Search members" value="${esc(V.q)}" style="flex:1;min-width:160px">${["all","Active","Expiring","Expired","Risk"].map(f=>`<span class="chip mc ${V.f===f?"on":""}" data-f="${f}">${f==="all"?"All":f==="Risk"?"At risk":f}</span>`).join("")}
+  <select id="so"><option value="name" ${V.s=="name"?"selected":""}>Sort: Name</option><option value="streak" ${V.s=="streak"?"selected":""}>Sort: Streak</option><option value="left" ${V.s=="left"?"selected":""}>Sort: Expiry</option></select></div>
+  ${L.length?`<div class="mg">${L.slice(0,120).map(m=>{const i=I.get(m.id);return`<div class="cd mc" data-open="${m.id}"><div class="r">${av(m)}<div style="flex:1;min-width:0"><b>${esc(m.name)}</b><div class="mu">${m.plan} · ${esc(m.goal)}</div></div><span class="b ${i.st}">${i.st}</span></div>
+  <div class="r rs" style="margin-top:10px"><span>🔥 ${i.streak}d</span><span class="mu">BMI ${i.b.toFixed(1)}</span><span class="mu">${i.left<0?"expired":i.left+"d left"}</span></div><div class="bar"><i style="width:${i.pct*100}%;background:var(--${i.st==="Active"?"ok":i.st==="Expiring"?"wn":"er"})"></i></div></div>`}).join("")}</div>`:`<div class="cd mu">${M.length?"No members match.":"No members yet. Add one or load sample data from the sidebar."}</div>`}`}
+function rem(){const R=M.filter(m=>I.get(m.id).left<=7&&I.get(m.id).left>=-30).sort((a,b)=>I.get(a.id).left-I.get(b.id).left),t=T(),S=[];
+  M.forEach(m=>(m.sess||[]).forEach(s=>{if(diff(s.d,t)>=0&&diff(s.d,t)<=3)S.push([m,s])}));S.sort((a,b)=>(a[1].d+a[1].time).localeCompare(b[1].d+b[1].time));
+  return`<div class="hd"><h1>Reminders</h1><button class="pr" data-a="copyall">Copy all renewal messages</button></div><div class="g c2">
+  <div class="cd"><h2>Renewals (${R.length})</h2>${R.map(m=>{const i=I.get(m.id);return`<div class="fl">${av(m)}<div style="flex:1;min-width:0"><b>${esc(m.name)}</b> <span class="b ${i.st}">${i.left<0?"expired":i.left+"d"}</span><div class="mu" style="font-size:12px">${esc(m.phone)}</div></div><button data-copy="${m.id}">Copy</button><button class="pr" data-ren="${m.id}">Renew</button></div>`}).join("")||'<span class="mu">No renewals due 🎉</span>'}</div>
+  <div class="cd"><h2>Sessions next 3 days (${S.length})</h2>${S.map(([m,s])=>`<div class="fl">${av(m)}<div style="flex:1"><b>${esc(m.name)}</b><div class="mu">${esc(s.type)} · ${s.d} ${s.time}</div></div><button data-scopy="${m.id}|${s.d}">Copy</button></div>`).join("")||'<span class="mu">No sessions scheduled.</span>'}</div></div>`}
+function drawer(m){if(!m)return"";const i=I.get(m.id),t=T(),cnt={};i.v.forEach(d=>cnt[d]=1);const [bn,bk]=bc(i.b),pos=Math.max(0,Math.min(100,(i.b-15)/25*100)),vol=weeks((a,b)=>Math.round((m.logs||[]).filter(l=>l.date>=a&&l.date<b).reduce((s,l)=>s+l.sets*l.reps*(l.kg||1),0)/100)/10);
+  const pts=m.weigh||[],mn=Math.min(...pts.map(p=>p.kg))-1,mx=Math.max(...pts.map(p=>p.kg))+1,P=pts.map((p,k)=>`${10+k/Math.max(1,pts.length-1)*280},${75-(p.kg-mn)/(mx-mn)*65}`).join(" ");
+  return`<div class="r rs"><button class="gh" data-a="close">✕ Close</button><button class="gh" data-del="${m.id}">🗑 Delete</button></div>
+  <div class="r" style="margin:14px 0">${av(m)}<div style="flex:1"><h1 style="font-size:20px">${esc(m.name)}</h1><span class="mu">${m.plan} · Coach ${esc(m.trainer)} · ${esc(m.goal)}</span></div><span class="b ${i.st}">${i.st}</span></div>
+  <div class="r" style="margin-bottom:14px"><button class="pr" data-ci="${m.id}" ${i.v.has(t)?"disabled":""}>${i.v.has(t)?"Checked in ✓":"Check in"}</button><button data-ren="${m.id}">Renew</button><button data-copy="${m.id}">Copy reminder</button></div>
+  <div class="g k4" style="grid-template-columns:repeat(3,1fr)"><div class="cd kp"><div class="n">${i.streak}🔥</div><div class="l">Day streak</div></div><div class="cd kp"><div class="n">${i.v.size}</div><div class="l">Visits (90d)</div></div><div class="cd kp"><div class="n">${Math.max(0,i.left)}</div><div class="l">Days left</div></div></div>
+  <div class="cd" style="margin-bottom:14px"><h2>BMI ${i.b.toFixed(1)} · <span class="b ${bk}">${bn}</span></h2><div style="position:relative;height:10px;border-radius:9px;background:linear-gradient(90deg,var(--wn) 14%,var(--ok) 14% 40%,var(--wn) 40% 60%,var(--er) 60%)"><i style="position:absolute;left:${pos}%;top:-4px;width:6px;height:18px;border-radius:4px;background:var(--tx);transition:.4s"></i></div></div>
+  <div class="cd" style="margin-bottom:14px"><h2>Attendance · 17 weeks</h2>${heat(cnt,17,1)}</div>
+  <div class="cd" style="margin-bottom:14px"><h2>Weekly volume (tonnes)</h2>${bars(vol,80)}</div>
+  <div class="cd" style="margin-bottom:14px"><h2>Weight trend · ${m.w} kg</h2><svg viewBox="0 0 300 90" width="100%"><polyline class="ln" points="${P}"/></svg><form id="fw"><input name="kg" type="number" step="0.1" min="20" max="300" placeholder="New weight (kg)" required><button>Log</button></form></div>
+  <div class="cd" style="margin-bottom:14px"><h2>Log workout</h2><form id="fo" data-id="${m.id}"><input name="ex" placeholder="Exercise" required><input name="sets" type="number" min="1" placeholder="Sets" required><input name="reps" type="number" min="1" placeholder="Reps" required><input name="kg" type="number" step=".5" placeholder="kg"><button class="pr">Add</button></form>
+  ${(m.logs||[]).slice(-4).reverse().map(l=>`<div class="mu" style="margin-top:6px">${l.date} · ${esc(l.ex)} ${l.sets}×${l.reps}${l.kg?" @ "+l.kg+"kg":""}</div>`).join("")}</div>
+  <div class="cd"><h2>Book session</h2><form id="fs"><input name="type" placeholder="Type" required><input name="d" type="date" min="${t}" required><input name="time" type="time" required><button class="pr">Book</button></form>${(m.sess||[]).filter(s=>s.d>=t).map(s=>`<div class="mu" style="margin-top:6px">📅 ${s.d} ${s.time} · ${esc(s.type)}</div>`).join("")}</div>`}
+function draw(){I=new Map(M.map(m=>[m.id,info(m)]));const a=document.activeElement;if(!(a&&(a.id==="q"||a.id==="qc")&&a.value===undefined)){const keep=a&&(a.id==="q"||a.id==="qc")?[a.id,a.selectionStart]:null;$("#mn").innerHTML=V.v==="dash"?dash():V.v==="mem"?mem():rem();if(keep){const e=$("#"+keep[0]);if(e){e.focus();e.setSelectionRange(keep[1],keep[1])}}}
+  document.querySelectorAll("nav .nv").forEach(b=>b.classList.toggle("on",b.dataset.v===V.v));
+  document.querySelectorAll(".kp .n[data-n]").forEach(e=>{const to=+e.dataset.n,k=V.v+e.nextElementSibling.textContent;if(seen[k]===to)return;seen[k]=to;const s=e.dataset.s||"",t0=performance.now();(function f(t){const p=Math.min(1,(t-t0)/700);e.textContent=Math.round(to*(1-Math.pow(1-p,3)))+s;if(p<1)requestAnimationFrame(f)})(t0)});
+  const dr=$("#dr"),m=M.find(x=>x.id===V.open),ae=document.activeElement;if(!(dr.contains(ae)&&ae.matches("input")&&ae.value))dr.innerHTML=drawer(m);dr.classList.toggle("o",!!m);$("#sh").classList.toggle("o",!!m)}
+/* ---------- events ---------- */
+const get=id=>M.find(m=>m.id===id);
+function ci(id){const m=get(id),t=T();if(m.visits.includes(t))return toast("Already checked in");m.visits.push(t);save(m);toast(m.name.split(" ")[0]+" checked in · "+info(m).streak+"-day streak 🔥")}
+function ren(id){const m=get(id),i=info(m);m.expiry=addD(i.left>0?m.expiry:T(),PL[m.plan]);save(m);toast("Renewed until "+m.expiry)}
+async function copy(t,n){try{await navigator.clipboard.writeText(t);toast(n||"Message copied")}catch(e){prompt("Copy message:",t)}}
+document.addEventListener("click",e=>{const el=e.target.closest("[data-v],[data-a],[data-open],[data-f],[data-ci],[data-ren],[data-copy],[data-scopy],[data-del],[data-pick],#sh");if(!el)return;const d=el.dataset;
+  if(d.v){V.v=d.v;V.open=null;scrollTo(0,0)}else if(d.open)V.open=d.open;else if(d.f)V.f=d.f;else if(d.ci)ci(d.ci);else if(d.ren)ren(d.ren);
+  else if(d.pick){ci(d.pick);V.q="";}else if(d.copy){const m=get(d.copy);copy(msg(m,info(m)))}
+  else if(d.scopy){const[id,dt]=d.scopy.split("|"),m=get(id),s=m.sess.find(x=>x.d===dt);copy(`Hi ${m.name}, reminder: your ${s.type} session is on ${s.d} at ${s.time}. See you at PulseForge!`)}
+  else if(d.del){const m=get(d.del);if(confirm("Delete "+m.name+"?")){V.open=null;remove(m.id)}}
+  else if(el.id==="sh"||d.a==="close")V.open=null;
+  else if(d.a==="seed")return seed();else if(d.a==="wipe")return wipe();
+  else if(d.a==="copyall"){const L=M.filter(m=>I.get(m.id).left<=7&&I.get(m.id).left>=-30);return copy(L.map(m=>msg(m,I.get(m.id))).join("\n\n"),L.length+" messages copied")}
+  else if(d.a==="add"){const n=prompt("Full name:");if(!n)return;const h=+prompt("Height (cm):","170"),w=+prompt("Weight (kg):","70"),p=prompt("Plan (Monthly / Quarterly / Annual):","Monthly");const plan=PL[p]?p:"Monthly";
+    if(!(h>50&&w>20))return toast("Invalid height/weight");const m={id:"m"+Date.now().toString(36),name:n.trim(),plan,h,w,goal:"General fitness",trainer:"Arun",phone:"",joined:T(),expiry:addD(T(),PL[plan]),visits:[],logs:[],weigh:[{d:T(),kg:w}],sess:[]};M.push(m);save(m);V.v="mem";V.open=m.id;toast("Member added")}
+  draw()});
+document.addEventListener("input",e=>{if(e.target.id==="q"){V.q=e.target.value;draw()}
+  if(e.target.id==="qc"){const q=e.target.value.toLowerCase(),L=q?M.filter(m=>m.name.toLowerCase().includes(q)).slice(0,5):[],dd=$("#dd");dd.hidden=!L.length;dd.innerHTML=L.map(m=>`<div data-pick="${m.id}">${esc(m.name)} <span class="mu">· ${info(m).st}</span></div>`).join("")}});
+document.addEventListener("change",e=>{if(e.target.id==="so"){V.s=e.target.value;draw()}});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&V.open){V.open=null;draw()}if(e.key==="Enter"&&e.target.id==="qc"){const f=$("#dd div");if(f)f.click()}});
+document.addEventListener("submit",e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target)),m=get(V.open);if(!m)return;
+  if(e.target.id==="fw"){m.w=+f.kg;m.weigh.push({d:T(),kg:+f.kg})}
+  if(e.target.id==="fo")m.logs.push({date:T(),ex:f.ex,sets:+f.sets,reps:+f.reps,kg:+f.kg||0}),!m.visits.includes(T())&&m.visits.push(T());
+  if(e.target.id==="fs"){(m.sess=m.sess||[]).push({d:f.d,time:f.time,type:f.type})}
+  e.target.reset();document.activeElement.blur();save(m);toast("Saved")});
+init();
+</script></body></html>
